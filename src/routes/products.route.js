@@ -1,8 +1,5 @@
-// import { Router } from "express"; 
-// import { products } from "../entities/product";
-
 const Router = require("express");
-const products = require("../entities/product")
+const products = require("../entities/product");
 
 const router = Router();
 
@@ -31,7 +28,7 @@ router.post("/", async (req, res) => {
 
     const newProduct = await products.addProduct(title, description, code, Number(price), Number(stock), category, thumbnails);
 
-    res.status(200).send({message: "Producto agregado.", data: newProduct})
+    res.status(200).send({message: "Producto agregado.", data: newProduct});
 });
 
 router.put("/:id", async (req, res) => {

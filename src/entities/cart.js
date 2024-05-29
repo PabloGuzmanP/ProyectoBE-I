@@ -1,4 +1,5 @@
 const fs = require("fs");
+const path = require("path");
 
 class cart {
     #route;
@@ -19,9 +20,9 @@ class cart {
         return id + 1;
     };
 
-    addCart = async (products) => {
+    addCart = async () => {
         const cart = {
-            id: this.#generarId,
+            id: this.#generarId(),
             products: []
         };
         this.#carts.push(cart);
@@ -62,7 +63,7 @@ class cart {
             cart.products.push(product);
         };
 
-        return await fs.promises.writeFile(this.#route, JSON.stringify(this.#carts, null, "\t"));
+        return await fs.promises.writeFile(this.#route, JSON.stringify(data, null, "\t"));
     }
 
     convertData = async () => {
@@ -71,4 +72,6 @@ class cart {
     };
 }
 
-export default cart;
+const filePath = path.resolve(__dirname,"../files", "carts.json");
+
+module.exports = new cart(filePath);
