@@ -23,13 +23,11 @@ class product {
 
     getProducts = async (limit) => {
         const data = await this.convertData();
-        let products = []
+        if(!limit || limit > data.length){
+            return data;
+        }
 
-        for (let i = 0; i < limit; i++) {
-            products = data[i];
-        };
-
-        return products;
+        return data.slice(0, limit);
     };
 
     getProductsById = async (id) => {
