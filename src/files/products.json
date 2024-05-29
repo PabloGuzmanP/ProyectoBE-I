@@ -1,0 +1,15 @@
+[
+	{
+		"id": 1,
+		"title": "Leche",
+		"description": "Contiene agua",
+		"code": "111",
+		"price": 23,
+		"status": true,
+		"stock": 2,
+		"category": "Bebidas",
+		"thumbnails": [
+			"milk.png"
+		]
+	}
+]
