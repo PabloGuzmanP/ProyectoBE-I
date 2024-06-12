@@ -1,6 +1,6 @@
 const Router = require("express");
-const carts = require("../entities/cart");
-const cart = require("../entities/cart");
+const carts = require("../cart");
+
 
 const router = Router();
 
