@@ -1,5 +1,6 @@
-const path = require("path");
-const fs = require("fs");
+import path from "path";
+import fs from "fs";
+import Path from "./utils/path.js"
 
 class product {
     #route;
@@ -101,6 +102,7 @@ class product {
     };
 };
 
-const filePath = path.resolve(__dirname,"../files", "products.json");
+const filePath = path.resolve(Path.files, "products.json");
 
-module.exports = new product(filePath);
+const productInstance = new product(filePath);
+export default productInstance;

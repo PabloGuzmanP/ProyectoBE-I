@@ -1,5 +1,5 @@
-const Router = require("express");
-const carts = require("../cart");
+import { Router } from "express";
+import carts from "../cart.js";
 
 
 const router = Router();
@@ -30,4 +30,4 @@ router.post("/", async (req, res) => {
     res.status(200).send({message:"Carrito agregado", data: newCart})
 })
 
-module.exports = router;
+export default router;

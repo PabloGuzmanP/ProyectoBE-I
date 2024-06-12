@@ -1,5 +1,5 @@
-const Router = require("express");
-const products = require("../product");
+import {Router} from "express";
+import products from "../product.js";
 
 const router = Router();
 
@@ -9,7 +9,7 @@ router.get("/", async (req, res) => {
 
     const productList = await products.getProducts(lim)
 
-    res.status(200).send({state: "success", data: productList});
+    res.render("home", {productList})
 });
 
 router.get("/:id", async (req, res) => {
@@ -52,4 +52,4 @@ router.delete("/:id", async (req, res) => {
     res.status(200).send({status: "success", data: await products.deleteProduct(idProduct)});
 })
 
-module.exports = router;
+export default router;

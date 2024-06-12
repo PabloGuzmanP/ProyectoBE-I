@@ -1,5 +1,6 @@
-const fs = require("fs");
-const path = require("path");
+import fs from "fs";
+import path from "path";
+import Path from "./utils/path.js"
 
 class cart {
     #route;
@@ -72,6 +73,7 @@ class cart {
     };
 }
 
-const filePath = path.resolve(__dirname,"../files", "carts.json");
+const filePath = path.resolve(Path.files, "carts.json");
 
-module.exports = new cart(filePath);
+const cartInstance = new cart(filePath);
+export default cartInstance;
