@@ -38,9 +38,7 @@ class product {
 
         if(product){
             return product;
-        } else {
-            return console.log("No se encontro ese Id en el archivo.");
-        };
+        }
     };
 
     addProduct = async (title, description, code, price, stock, category, thumbnails) => {

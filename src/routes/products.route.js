@@ -1,5 +1,6 @@
 import {Router} from "express";
 import products from "../product.js";
+import serverSocket from "../config/socket.config.js";
 
 const router = Router();
 
@@ -9,8 +10,9 @@ router.get("/", async (req, res) => {
 
     const productList = await products.getProducts(lim)
 
-    res.render("home", {productList})
+    res.render("home", {productList});
 });
+
 
 router.get("/:id", async (req, res) => {
     const { id } = req.params;
@@ -29,6 +31,7 @@ router.post("/", async (req, res) => {
     const newProduct = await products.addProduct(title, description, code, Number(price), Number(stock), category, thumbnails);
 
     res.status(200).send({message: "Producto agregado.", data: newProduct});
+
 });
 
 router.put("/:id", async (req, res) => {
@@ -50,6 +53,6 @@ router.delete("/:id", async (req, res) => {
     const idProduct = Number(id);
 
     res.status(200).send({status: "success", data: await products.deleteProduct(idProduct)});
-})
+});
 
 export default router;

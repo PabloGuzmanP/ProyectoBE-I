@@ -11,5 +11,18 @@
 		"thumbnails": [
 			"milk.png"
 		]
+	},
+	{
+		"id": 2,
+		"title": "Agua",
+		"description": "Hidratacion",
+		"code": "141",
+		"price": 54,
+		"status": true,
+		"stock": 3,
+		"category": "Bebidas",
+		"thumbnails": [
+			"agua.png"
+		]
 	}
 ]
