@@ -30,6 +30,8 @@ router.post("/", async (req, res) => {
 
     const newProduct = await products.addProduct(title, description, code, Number(price), Number(stock), category, thumbnails);
 
+    serverSocket.serverSocket.emit("updateProducts", await products.getProducts());
+
     res.status(200).send({message: "Producto agregado.", data: newProduct});
 
 });
@@ -51,8 +53,12 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
     const { id } = req.params;
     const idProduct = Number(id);
+    await products.deleteProduct(idProduct);
 
-    res.status(200).send({status: "success", data: await products.deleteProduct(idProduct)});
+    serverSocket.serverSocket.emit("updateProducts", await products.getProducts());
+
+    res.status(200).send({status: "success", message: "Producto Eliminado"});
 });
+
 
 export default router;

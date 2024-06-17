@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const productForm = document.querySelector('form');
+    const productList = document.querySelector('#product-list');
 
     productForm.addEventListener('submit', function(event) {
     event.preventDefault(); 
@@ -39,10 +40,19 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('Error al enviar la solicitud:', error);
     });
     });
-});
-const socket = io();
 
-socket.on("connect", () => {
-    console.log("Conectado al server");
-});
+    const socket = io();
 
+    socket.on("connect", () => {
+        console.log("Conectado al server");
+    });
+
+    socket.on("updateProducts", (products) => {
+        productList.innerHTML = "";
+        products.forEach(product => {
+            const li = document.createElement("li");
+            li.textContent = `${product.title} - ${product.description}`;
+            productList.appendChild(li);
+        });
+    })
+});
