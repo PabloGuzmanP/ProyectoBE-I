@@ -94,21 +94,6 @@ class product {
         };
     };
 
-    deleteProductByTitle = async (title) => {
-        const data = await this.convertData();
-
-        const newProducts = data.filter(item => item.title !== title);
-
-        if (newProducts.length < data.length) {
-            await fs.promises.writeFile(this.#route, JSON.stringify(newProducts, null, "\t"));
-            console.log("Producto eliminado correctamente");
-            return true;
-        } else {
-            console.log("No se pudo eliminar el producto");
-            return false;
-        }
-    };
-
     convertData = async () => {
         const data = await fs.promises.readFile(this.#route, "utf-8");
         return JSON.parse(data);
