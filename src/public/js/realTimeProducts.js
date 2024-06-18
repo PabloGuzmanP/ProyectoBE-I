@@ -13,6 +13,13 @@ socket.on("updateProducts", (products) => {
     products.forEach((product) => {
         const li = document.createElement("li");
         li.textContent = `${product.title} - ${product.description}`;
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Eliminar";
+        deleteButton.addEventListener("click", () => {
+            deleteProduct(product.id);
+        });
+
+        li.appendChild(deleteButton);
         productsList.appendChild(li);
     });
 });
@@ -48,3 +55,23 @@ formProduct.addEventListener("submit", function (event) {
         console.error("Error al enviar la solicitud:", error);
     });
 });
+
+function deleteProduct(productId) {
+    fetch(`/api/products/${productId}`, {
+        method: "DELETE",
+    })
+    .then((response) => {
+        if (response.ok) {
+            updateProductList();
+        } else {
+            throw new Error("Error al eliminar el producto.");
+        }
+    })
+    .catch((error) => {
+        console.error("Error al eliminar el producto:", error);
+    });
+}
+
+function updateProductList() {
+    socket.emit("getProducts");
+}

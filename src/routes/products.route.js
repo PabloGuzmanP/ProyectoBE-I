@@ -74,7 +74,11 @@ router.delete("/:id", async (req, res) => {
     
     try {
         await products.deleteProduct(idProduct);
-        socket.emit("updateProducts", await products.getProducts());
+        const updatedProducts = await products.getProducts();
+
+        console.log("Productos updated", updatedProducts);
+
+        socket.emit("updateProducts", updatedProducts);
         res.status(200).send({ status: "success", message: "Producto Eliminado" });
     } catch (error) {
         console.error("Error al eliminar producto:", error);
