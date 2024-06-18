@@ -3,6 +3,7 @@ import products from "../product.js";
 import serverSocket from "../config/socket.config.js";
 
 const router = Router();
+const socket = serverSocket.config();
 
 router.get("/", async (req, res) => {
     const { limit } = req.query;
@@ -28,11 +29,28 @@ router.post("/", async (req, res) => {
         return res.status(400).send({"error": "Faltan datos."});
     };
 
-    const newProduct = await products.addProduct(title, description, code, Number(price), Number(stock), category, thumbnails);
+    try {
+        const newProduct = await products.addProduct(
+            title,
+            description,
+            code,
+            Number(price),
+            Number(stock),
+            category,
+            thumbnails
+        );
 
-    serverSocket.serverSocket.emit("updateProducts", await products.getProducts());
+        const updatedProducts = await products.getProducts();
 
-    res.status(200).send({message: "Producto agregado.", data: newProduct});
+        console.log("Productos updated", updatedProducts);
+
+        socket.emit("updateProducts", updatedProducts);
+
+        res.status(200).send({ message: "Producto agregado.", data: newProduct });
+    } catch (error) {
+        console.error("Error al agregar producto:", error);
+        res.status(500).send({ error: "Error interno del servidor." });
+    }
 
 });
 
@@ -53,11 +71,15 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
     const { id } = req.params;
     const idProduct = Number(id);
-    await products.deleteProduct(idProduct);
-
-    serverSocket.serverSocket.emit("updateProducts", await products.getProducts());
-
-    res.status(200).send({status: "success", message: "Producto Eliminado"});
+    
+    try {
+        await products.deleteProduct(idProduct);
+        socket.emit("updateProducts", await products.getProducts());
+        res.status(200).send({ status: "success", message: "Producto Eliminado" });
+    } catch (error) {
+        console.error("Error al eliminar producto:", error);
+        res.status(500).send({ error: "Error interno del servidor." });
+    }
 });
 
 
