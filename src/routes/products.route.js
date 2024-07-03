@@ -1,9 +1,26 @@
 import {Router} from "express";
 import products from "../product.js";
 import serverSocket from "../config/socket.config.js";
+import ProductsManager from "../managers/ProductsManager.js";
 
 const router = Router();
 const socket = serverSocket.config();
+const productsManager = new ProductsManager();
+
+router.get("/mongo", async (req, res) => {
+    const { limit = 10, page = 1, query, sort } = req.query;
+
+    try {
+        const parsedSort = sort ? JSON.parse(sort) : undefined;
+        const parsedQuery = query ? JSON.parse(query) : {};
+
+        const productsFound = await productsManager.getAll(limit, page, parsedQuery, parsedSort);
+
+        res.status(200).json({ status: true, payload: productsFound });
+    } catch (error) {
+        res.status(500).json({ status: false, message: error.message });
+    }
+});
 
 router.get("/", async (req, res) => {
     const { limit } = req.query;
