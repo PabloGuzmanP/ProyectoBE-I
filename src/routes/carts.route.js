@@ -33,7 +33,7 @@ router.post("/", async (req, res) => {
 })
 
 // ------------------------------ MONGO ---------------------------------------------------------
-router.get("/mongo", async (req, res) => {
+router.get("/mongo/get", async (req, res) => {
     try {
         const cartsFound = await cartsManager.getAll();
         res.status(200).json({ status: true, payload: cartsFound});
@@ -68,6 +68,34 @@ router.post("/mongo/:cid/product/:pid", async (req, res) => {
     }
 });
 
+// ELIMINAR UN CARRITO
+router.delete("/mongo/:cid", async (req, res) => {
+    const {cid} = req.params;
+    if(!cid){
+        return res.status(400).send({"error": "Faltan datos."});
+    }
 
+    try {
+        const deleteCart = await cartsManager.deleteCart(cid);
+        res.status(200).send({message: "Carrito eliminado", payload: deleteCart});
+    } catch (error) {
+        throw new Error(error.message);
+    }    
+})
+
+// ELIMINAR DEL CARRITO UN PRODUCTO SELECCIONADO
+router.delete("/mongo/:cid/products/:pid", async (req, res) => {
+    const {cid, pid} = req.params;
+    if(!cid || !pid){
+        return res.status(400).send({"error": "Faltan datos."});
+    }
+
+    try {
+        const deleteProduct = await cartsManager.deleteProductOfCart(cid, pid);
+        res.status(200).send({message: "Producto eliminado", payload: deleteProduct});
+    } catch (error) {
+        throw new Error(error.message);
+    }
+});
 
 export default router;

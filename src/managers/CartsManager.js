@@ -10,7 +10,7 @@ export default class CartsManager {
 
     getAll = async () => {
         try {
-            const carts = await this.#cartModel.paginate();
+            const carts = await this.#cartModel.find();
             return carts;
         } catch (error) {
             throw new Error(error.message);
@@ -49,6 +49,38 @@ export default class CartsManager {
             const updatedCart = await cart.save();
             return updatedCart;
 
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    };
+
+    deleteCart = async (cid) => {
+        try {
+            const deletedCart = await this.#cartModel.findByIdAndDelete(cid);
+            if (!deletedCart) {
+                throw new Error("Carrito no encontrado");
+            }
+            return deletedCart;
+        } catch (error) {
+            throw new Error (error.message);
+        }
+    };
+
+    deleteProductOfCart = async (cid, pid) => {
+        try {
+            const cart = await this.#cartModel.findById(cid);
+            if(!cart){
+                throw new Error("Carrito no encontrado");
+            }
+            const productIndex = cart.products.findIndex(p => p.productId.toString() === pid.toString());
+            if(productIndex === -1){
+                throw new Error ("Producto no encontrado en carrito");
+            }
+            
+            cart.products.splice(productIndex, 1);
+
+            const updatedCart = await cart.save();
+            return updatedCart;
         } catch (error) {
             throw new Error(error.message);
         }
