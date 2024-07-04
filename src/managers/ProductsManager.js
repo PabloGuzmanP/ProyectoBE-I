@@ -16,8 +16,13 @@ export default class ProductsManager {
             };
 
             const queryFilter = {};
-            if (query && query.category) {
-                queryFilter.category = query.category;
+            if ((query && query.category) || (query && query.stock)) {
+                if(query.category){
+                    queryFilter.category = query.category;
+                }
+                if(query.stock){
+                    queryFilter.stock = query.stock
+                }
             }
 
             if (sort && sort.field === "price") {

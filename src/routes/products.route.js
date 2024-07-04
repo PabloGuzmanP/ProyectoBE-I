@@ -16,7 +16,21 @@ router.get("/mongo", async (req, res) => {
 
         const productsFound = await productsManager.getAll(limit, page, parsedQuery, parsedSort);
 
-        res.status(200).json({ status: true, payload: productsFound });
+        const buildLink = (page) => {
+            let link = `${req.protocol}://${req.get('host')}${req.originalUrl.split('?')[0]}?limit=${limit}&page=${page}`;
+            if(sort){
+                link += `&sort=${encodeURIComponent(sort)}`;
+            }
+            if(query){
+                link += `&query=${encodeURIComponent(query)}`;
+            }
+            return link;
+        }
+
+        const prevLink = productsFound.hasPrevPage ? buildLink(productsFound.prevPage) : null;
+        const nextLink = productsFound.hasNextPage ? buildLink(productsFound.nextPage) : null;
+
+        res.status(200).json({ status: true, payload: {...productsFound, prevLink, nextLink}});
     } catch (error) {
         res.status(500).json({ status: false, message: error.message });
     }

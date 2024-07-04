@@ -26,6 +26,6 @@ Para ver la lista de los productos agregados actualmente en la lista, sigue esto
 
 2. **Se puede ingresar también por query params lo siguiente: `limit`, `page`, `{"category":""}` y para ordenar por medio de precio `{"field":"price", "order": "asc/desc"}`. Direcciones de ejemplo:**
 
-   2.1. `http://localhost:8080/api/products/mongo?limit=20&page=2&sort={"field":"price", "sort": "asc"}&query={"category":"Bebidas"}`
+   2.1. `http://localhost:8080/api/products/mongo?limit=20&page=1&sort={"field":"price","order":"desc"}&query={"category":"Bebidas"}`
 
    2.2. `http://localhost:8080/api/products/mongo?query={"category":"Frutas"}`
