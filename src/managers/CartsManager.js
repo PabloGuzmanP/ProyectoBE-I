@@ -143,4 +143,17 @@ export default class CartsManager {
             throw new Error(error.message);
         }
     };
+
+    getCartById = async (cid) => {
+        try {
+            const cart = await this.#cartModel.findById(cid).populate("products.productId");
+        if(!cart){
+            throw new Error("Carrito no encontrado");
+        }
+
+        return cart;
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    };
 }
