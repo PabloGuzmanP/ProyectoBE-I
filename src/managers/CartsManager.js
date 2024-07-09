@@ -85,4 +85,62 @@ export default class CartsManager {
             throw new Error(error.message);
         }
     };
+
+    updateCart = async (cid, products) => {
+        try {
+            const cart = await this.#cartModel.findById(cid);
+            if(!cart){
+                throw new Error("Carrito no encontrado");
+            }
+            cart.products = products;
+
+            const updateCart = await cart.save();
+            return updateCart;
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    };
+
+    updateQuantity = async (cid, pid, quantity) => {
+        try {
+            const cart = await this.#cartModel.findById(cid);
+            if(!cart){
+                throw new Error("Carrito no encontrado");
+            }
+
+            const product = await ProductModel.findById(pid);
+            if(!product){
+                throw new Error("Producto no encontrado");
+            }
+
+            const productIndex = cart.products.findIndex(p => p.productId.toString() === pid);
+            if(productIndex !== -1){
+                cart.products[productIndex].quantity = quantity;
+            }else {
+                cart.products.push({productId: pid, quantity: quantity});
+            }
+
+            const updatedCart = await cart.save();
+            return updatedCart;
+
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    };
+
+    deleteProductsCart = async(cid) => {
+        try {
+            const cart = await this.#cartModel.findById(cid);
+            if(!cart){
+                throw new Error("Carrito no encontrado");
+            }
+            
+            cart.products = [];
+
+            const updatedCart = await cart.save();
+            return updatedCart;
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    };
 }

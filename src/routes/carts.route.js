@@ -98,4 +98,52 @@ router.delete("/mongo/:cid/products/:pid", async (req, res) => {
     }
 });
 
+// ACTUALIZAR EL CARRITO CON UN ARREGLO
+router.put("/mongo/:cid", async (req, res) => {
+    const {cid} = req.params;
+    const {products} = req.body;
+    if(!cid || !products){
+        return res.status(400).send({"error": "Faltan datos."});
+    }
+
+    try {
+        const updateCart = await cartsManager.updateCart(cid, products);
+        res.status(200).send({message: "Carrito actualizado", payload: updateCart});
+    } catch (error) {
+        throw new Error(error.message);
+    }
+});
+
+// ACTUALIZAR LA CANTIDAD DE EJEMPLARES DEL PRODUCTO
+router.put("/mongo/:cid/products/:pid", async (req, res) =>{
+    const {cid, pid} = req.params;
+    const {quantity} = req.body;
+
+    if(!quantity) {
+        return res.status(400).send({"error": "Faltan datos."});
+    }
+
+    try {
+        const updateQuantity = await cartsManager.updateQuantity(cid, pid, Number(quantity));
+        res.status(200).send({message: "Cantidad de producto Actualizada", payload: updateQuantity});
+    } catch (error) {
+        throw new Error(error.message);
+    }
+});
+
+// ELIMINAR PRODUCTOS DEL CARRITO
+router.delete("/mongo/carts/:cid", async (req, res) => {
+    const {cid} = req.params;
+    if(!cid){
+        return res.status(400).send({"error": "Faltan datos."});
+    }
+
+    try {
+        const deleteProductsCart = await cartsManager.deleteProductsCart(cid);
+        res.status(200).send({message: "Productos de Carrito Eliminados", payload: deleteProductsCart});
+    } catch (error) {
+        throw new Error(error.message);
+    }
+});
+
 export default router;
