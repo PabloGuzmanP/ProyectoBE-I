@@ -1,0 +1,16 @@
+<h1>Productos en el Carrito</h1>
+{{#if cart.products.length}}
+    <ul>
+        {{#each cart.products}}
+            <li>
+                <p>Nombre: {{this.productId.title}}</p>
+                <p>Descripción: {{this.productId.description}}</p>
+                <p>Precio: {{this.productId.price}}</p>
+                <p>Categoría: {{this.productId.category}}</p>
+                <p>Cantidad: {{this.quantity}}</p>
+            </li>
+        {{/each}}
+    </ul>
+{{else}}
+    <p>No hay productos en este carrito.</p>
+{{/if}}

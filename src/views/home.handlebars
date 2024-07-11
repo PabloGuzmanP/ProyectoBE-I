@@ -1,12 +1,21 @@
 <div>
     <ul>
-        {{#each productList}}
+        {{#each products}}
         <li>
             <p>Nombre: {{this.title}}</p>
             <p>Descripción: {{this.description}}</p>
             <p>Precio: {{this.price}}</p>
             <p>Categoría: {{this.category}}</p>
         </li>
+        <button>Agregar Carrito</button>
         {{/each}}
     </ul>
+    <div>
+        {{#if pagination.prevLink}}
+            <a href="{{pagination.prevLink}}">Anterior Pagina</a>
+        {{/if}}
+        {{#if pagination.nextLink}}
+            <a href="{{pagination.nextLink}}">Siguiente Pagina</a>
+        {{/if}}
+    </div>
 </div>
