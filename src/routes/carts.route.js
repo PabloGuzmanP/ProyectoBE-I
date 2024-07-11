@@ -146,6 +146,7 @@ router.delete("/mongo/carts/:cid", async (req, res) => {
     }
 });
 
+// METODO GET CON POPULATE
 router.get("/mongo/get/:cid", async (req, res) => {
     const {cid} = req.params;
     if(!cid){
