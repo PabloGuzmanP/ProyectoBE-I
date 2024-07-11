@@ -13,7 +13,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@handlebars/allow-prototype-access": "^1.0.5",
     "express": "^4.19.2",
     "express-handlebars": "^7.1.2",
     "mongodb": "^6.8.0",

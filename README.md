@@ -99,3 +99,11 @@ Para ver la lista de los productos agregados actualmente en la lista, sigue esto
     http://localhost:8080/api/carts/mongo/get/(id_carrito)
 
 4. **Handlebars**
+
+    4.1 Para poder ver todos los productos que exiten en la base de datos de mongo, se tiene que ingresar a la siguiente dirección:  
+
+    http://localhost:8080/api/products/mongo/products
+
+    4.2 Vista de Carts, donde a la direccion se le ingresa el id del carrito para asi poder ver los productos que tiene ese carrito.
+
+    http://localhost:8080/api/carts/mongo/cart/(id_carrito)
