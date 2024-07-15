@@ -1,16 +1,26 @@
-<h1>Productos en el Carrito</h1>
-{{#if cart.products.length}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/api/public/css/styles_carts.css">
+</head>
+
+<body>
+    <h1>Productos en el Carrito</h1>
+    {{#if cart.products.length}}
     <ul>
         {{#each cart.products}}
-            <li>
-                <p>Nombre: {{this.productId.title}}</p>
-                <p>Descripción: {{this.productId.description}}</p>
-                <p>Precio: {{this.productId.price}}</p>
-                <p>Categoría: {{this.productId.category}}</p>
-                <p>Cantidad: {{this.quantity}}</p>
-            </li>
+        <li>
+            <p>Nombre: {{this.productId.title}}</p>
+            <p>Descripción: {{this.productId.description}}</p>
+            <p>Precio: {{this.productId.price}}</p>
+            <p>Categoría: {{this.productId.category}}</p>
+            <p>Cantidad: {{this.quantity}}</p>
+        </li>
         {{/each}}
     </ul>
-{{else}}
+    {{else}}
     <p>No hay productos en este carrito.</p>
-{{/if}}
+    {{/if}}
+</body>

@@ -9,6 +9,7 @@ const paths = {
     public: Path.join(Path.dirname(""), "src", "public"),
     views: Path.join(Path.dirname(""), "src", "views"),
     files: Path.join(Path.dirname(""), "src", "files"),
+    css: Path.join(Path.dirname(""), "src", "public", "css")
 };
 
 export default paths;
