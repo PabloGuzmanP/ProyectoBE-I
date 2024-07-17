@@ -78,13 +78,14 @@ export default class ProductsManager {
 
     updatedProduct = async (id, data) => {
         try {
-            const userUpdated = await this.#productModel.findByIdAndUpdate(id, data);
-            if(!userUpdated) {
+            const productUpdated = await this.#productModel.findByIdAndUpdate(id, data);
+            if(!productUpdated) {
                 throw new Error("Producto no encontrado");
             }
             
-            return userUpdated;
+            return productUpdated;
         } catch (error) {
+            console.log("---------------------");
             throw new Error(error.message);
         }
     };

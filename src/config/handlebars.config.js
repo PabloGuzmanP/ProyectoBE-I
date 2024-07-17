@@ -7,7 +7,7 @@ const config = (serverHTTP) => {
         runtimeOptions: {
             allowedProtoPropertiesByDefault: true,
             allowProtoMethodsByDefault: true,
-        }
+        },
     });
     serverHTTP.engine("handlebars", hbs.engine);
     serverHTTP.set("views", path.views);

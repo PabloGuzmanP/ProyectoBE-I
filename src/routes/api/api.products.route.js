@@ -46,7 +46,6 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
     try {
         const newProduct = req.body;
-        // Agregar el producto a la base de datos
         const result = await productsManager.addProduct(newProduct);
         res.status(201).json(result);
     } catch (error) {
@@ -59,7 +58,7 @@ router.put("/:id", async (req, res) => {
     const {id} = req.params;
     const updateFields= req.body;
 
-    const updateProduct = await products.updateProduct(Number(id), updateFields)
+    const updateProduct = await productsManager.updatedProduct(id, updateFields);
 
     if(!updateFields){
         res.status(404).send({ error: "Producto no encontrado" });
