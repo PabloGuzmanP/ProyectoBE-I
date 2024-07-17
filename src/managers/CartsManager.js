@@ -27,6 +27,7 @@ export default class CartsManager {
         }
     };
 
+    // Equivalente a insertOneProductCart
     addProductToCart  = async (cid, pid, quantity) => {
         try {
             const cart = await this.#cartModel.findById(cid);
@@ -66,6 +67,7 @@ export default class CartsManager {
         }
     };
 
+    // Equivalente a removeOneProductCart
     deleteProductOfCart = async (cid, pid) => {
         try {
             const cart = await this.#cartModel.findById(cid);
@@ -100,7 +102,7 @@ export default class CartsManager {
             throw new Error(error.message);
         }
     };
-
+    // Equivalente a updateOneProductCart
     updateQuantity = async (cid, pid, quantity) => {
         try {
             const cart = await this.#cartModel.findById(cid);
@@ -128,6 +130,7 @@ export default class CartsManager {
         }
     };
 
+    // Equivalente a removeAllProductsCart
     deleteProductsCart = async(cid) => {
         try {
             const cart = await this.#cartModel.findById(cid);

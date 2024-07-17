@@ -13,10 +13,18 @@ socket.on("updateProducts", (products) => {
     products.forEach((product) => {
         const li = document.createElement("li");
         li.textContent = `${product.title} - ${product.description}`;
-        const deleteButton = document.createElement("button");
+        li.innerHTML = `
+            <p>Nombre: ${product.title}</p>
+            <p>Descripción: ${product.description}</p>
+            <p>Código: ${product.code}</p>
+            <p>Precio: $${product.price}</p>
+            <p>Categoría: ${product.category}</p>
+            <button>Eliminar</button>
+        `;
+        const deleteButton = li.querySelector("button");
         deleteButton.textContent = "Eliminar";
         deleteButton.addEventListener("click", () => {
-            deleteProduct(product.id);
+            deleteProduct(product._id);
         });
 
         li.appendChild(deleteButton);
@@ -49,7 +57,8 @@ formProduct.addEventListener("submit", function (event) {
     .then((response) => response.json())
     .then((response) => {
         formProduct.reset();
-        socket.emit("formulario", data);
+        socket.emit("formulario");
+        // socket.emit("formulario", data);
     })
     .catch((error) => {
         console.error("Error al enviar la solicitud:", error);
@@ -62,7 +71,8 @@ function deleteProduct(productId) {
     })
     .then((response) => {
         if (response.ok) {
-            updateProductList();
+            socket.emit("getProducts");
+            // updateProductList();
         } else {
             throw new Error("Error al eliminar el producto.");
         }

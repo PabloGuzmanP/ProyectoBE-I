@@ -24,5 +24,18 @@
 		"thumbnails": [
 			"agua.png"
 		]
+	},
+	{
+		"id": 3,
+		"title": "Kiwi",
+		"description": "Kiwi Fresco",
+		"code": "7878",
+		"price": 45,
+		"status": true,
+		"stock": 19,
+		"category": "Frutas",
+		"thumbnails": [
+			"kiwi.png"
+		]
 	}
 ]
