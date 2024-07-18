@@ -1,109 +1,108 @@
 # Instrucciones de Uso
 
-## Ver la lista de Productos
+## Entrega Final
 
-Para ver la lista de los productos agregados actualmente en la lista, sigue estos pasos:
+**Se crean dos tipos de rutas (app y api):**
 
-1. **Accede a la siguiente dirección en tu navegador:**
+1. **Rutas APP: estas estan encargadas de renderizar los productos tanto por HTTP como por Webscokets. Asi estan definidas:**  
 
-    http://localhost:8080/api/products/
+    * ``http://localhost:8080`` :Esta dirección se muestra todos los productos con su respectiva paginación y con la posibilidad de agregarlos al carrito.
+    * ``http://localhost:8080/cart-products/(id_carrito)`` : Esta dirección muestra los productos que tiene el carrito en especifico. Asi se puede comprobar que el producto anteriormente agregado, se incluyo correctamente.
+    * ``http://localhost:8080/real-time-products`` :Esta dirección es por medio de Websockets, lo que permite ver la lista de productos en tiempo real. Esta dirección tambien permitira guardar un nuevo producto y asi mismo contara con un boton para eliminarlo.
+    * ``http://localhost:8080/products/(id_producto)`` :Esta direccion permite al usuario observar la información del producto que se le pase por su id.  
 
-    Esta URL te proporcionará la lista completa de productos disponibles.
+2. **Rutas API: estas rutas se generan para gestionar tanto el producto y el carrito en el POSTMAN**  
 
-2. **Para limitar el número de productos que se muestran en la lista, puedes añadir un parámetro `limit` a la URL. Sustituye `(cantidad de elementos)` por el número deseado de productos que deseas mostrar:**
-
-    http://localhost:8080/api/products/?limit=(cantidad_de_elementos)
-
-3. **Para acceder a la pagina de agregar un producto y eliminarlo, viendolo en una lista que se actualiza, ingresa a la siguiente dirección:**
-
-    http://localhost:8080/realTimeProducts
-
-## Ver la lista de productos (Mongo)
-
-1. **Al momento de ingresar a la siguiente dirección esta solo mostrara un limite de 10 productos que esten en la base de datos.**
-
-    http://localhost:8080/api/products/mongo
-
-2. **Se puede ingresar también por query params lo siguiente: `limit`, `page`, `{"category":""}` y para ordenar por medio de precio `{"field":"price", "order": "asc/desc"}`. Direcciones de ejemplo:**
-
-   2.1. `http://localhost:8080/api/products/mongo?limit=20&page=1&sort={"field":"price","order":"desc"}&query={"category":"Bebidas"}`
-
-   2.2. `http://localhost:8080/api/products/mongo?query={"category":"Frutas"}`
-
-3. **Endpoints del router cart:**
+    * **API/PRODUCTS**
     
-    3.1 Metodo GET para obtener todos los carritos.
+        * Al momento de ingresar a la siguiente dirección esta solo mostrara un limite de 10 productos que esten en la base de datos, con su respectiva paginación.  
 
-    http://localhost:8080/api/carts/mongo/get
+            http://localhost:8080/api/products
 
-    3.2 Metodo POST para crear un nuevo carrito.
+        * Se puede ingresar también por query params lo siguiente: `limit`, `page`, `{"category":""}` y para ordenar por medio de precio `{"field":"price", "order": "asc/desc"}`. Direcciones de ejemplo:  
 
-    http://localhost:8080/api/carts/mongo
+            * http://localhost:8080/api/products?limit=20&page=1&sort={"field":"price","order":"desc"}&query={"category":"Bebidas"}  
 
-    3.3 Metodo POST para poder insertar la cantidad de un producto a un carrito.
+            * http://localhost:8080/api/products?query={"category":"Frutas"}  
 
-    http://localhost:8080/api/carts/mongo/(id_carrito)/product/(id_producto)
-    Body:  
-    ```
-    {
-        "quantity": "6"
-    }       
-    ```
+        * Metodo POST para agregar un producto.  
 
-    3.4 Metodo DELETE para eliminar un carrito.
+            http://localhost:8080/api/products
 
-    http://localhost:8080/api/carts/mongo/(id_carrito)
+        * Metodo PUT para actualizar uno o varios datos del producto.
 
-    3.5 Metodo DELETE para eliminar del carrito un producto seleccionado.
+            http://localhost:8080/api/products/(id_producto)
 
-    http://localhost:8080/api/carts/mongo/(id_carrito)/products/(id_producto)
+        * Metodo DELETE para borrar un producto.
 
-    3.6 Método PUT para actualizar el carrito con un arreglo de productos.
+            http://localhost:8080/api/products/(id_producto)
 
-    http://localhost:8080/api/carts/mongo/(id_carrito)  
-    Body: 
-    ```
-    {
-        "products": [
+    * **API/CARTS**  
+
+        * Metodo GET para obtener todos los carritos.
+
+            http://localhost:8080/api/carts
+
+        * Metodo GET con POPULATE que trae más informacion de los productos.
+
+            http://localhost:8080/api/carts/(id_carrito)
+        
+        * Metodo POST para crear un carrito.
+
+            http://localhost:8080/api/carts
+
+        * Metodo POST para poder insertar la cantidad de un producto a un carrito.  
+
+            http://localhost:8080/api/carts/(id_carrito)/product/(id_producto)  
+
+            Body:  
+            ```
             {
-            "productId": "6685853c5b33ce0bf9ddbcad",
-            "quantity": 6
-            },
+                "quantity": "6"
+            }       
+            ```
+
+        * Método PUT para actualizar el carrito con un arreglo de productos.  
+
+            http://localhost:8080/api/carts/(id_carrito)  
+            Body: 
+            ```
             {
-            "productId": "668574e15b33ce0bf9d4d698",
-            "quantity": 2
-            },
-            {
-            "productId": "6685853c5b33ce0bf9ddbcb7",
-            "quantity": 19
+                "products": [
+                    {
+                    "productId": "6685853c5b33ce0bf9ddbcad",
+                    "quantity": 6
+                    },
+                    {
+                    "productId": "668574e15b33ce0bf9d4d698",
+                    "quantity": 2
+                    },
+                    {
+                    "productId": "6685853c5b33ce0bf9ddbcb7",
+                    "quantity": 19
+                    }
+                ]
             }
-        ]
-    }
-    ```
-    3.7 Metodo PUT para actulizar la cantidad de ejemplares del producto.
+            ```
+        
+        * Metodo PUT para actulizar la cantidad de ejemplares del producto.
 
-    http://localhost:8080/api/carts/mongo/(id_carrito)/products/(id_producto)  
-    Body:
-    ```
-    {
-        "quantity": "3"
-    }       
-    ```
+            http://localhost:8080/api/carts/(id_carrito)/products/(id_producto)  
+            Body:
+            ```
+            {
+                "quantity": "3"
+            }       
+            ```
 
-    3.8 Metodo DELETE para eliminar todos los productos del carrito.
+        * Metodo DELETE para eliminar un carrito.
 
-    http://localhost:8080/api/carts/mongo/carts/(id_carrito)
+            http://localhost:8080/api/carts/(id_carrito)
 
-    3.9 Metodo GET con POPULATE.
+        * Metodo DELETE para eliminar del carrito un producto seleccionado.
 
-    http://localhost:8080/api/carts/mongo/get/(id_carrito)
+            http://localhost:8080/api/carts/(id_carrito)/products/(id_producto)
 
-4. **Handlebars**
+        * Metodo DELETE para eliminar todos los productos del carrito.  
 
-    4.1 Para poder ver todos los productos que exiten en la base de datos de mongo, se tiene que ingresar a la siguiente dirección:  
-
-    http://localhost:8080/api/products/mongo/products
-
-    4.2 Vista de Carts, donde a la direccion se le ingresa el id del carrito para asi poder ver los productos que tiene ese carrito.
-
-    http://localhost:8080/api/carts/mongo/cart/(id_carrito)
+            http://localhost:8080/api/carts/cart/(id_carrito)
