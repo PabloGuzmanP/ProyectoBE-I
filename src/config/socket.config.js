@@ -21,16 +21,6 @@ const config = (serverHTTP) => {
             const updatedProducts = await productsManager.getProducts();
             serverSocket.emit("updateProducts", updatedProducts);
         });
-        // socket.on("getProducts", async () => {
-        //     const productList = await products.getProducts();
-        //     socket.emit("updateProducts", productList)
-        // })
-
-        
-        // socket.on("formulario", async () => {
-        //     const updatedProducts = await products.getProducts();
-        //     serverSocket.emit("updateProducts", updatedProducts);
-        // })
     });
     return serverSocket;
 };

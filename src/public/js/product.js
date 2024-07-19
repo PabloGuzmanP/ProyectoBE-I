@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            const quantity = 1; // O permite al usuario especificar la cantidad
+            const quantity = 1;
 
             try {
                 const response = await fetch(`/api/carts/${cartId}/addProduct`, {
@@ -27,7 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const result = await response.json();
                 console.log('Producto agregado al carrito:', result);
-                // Opcional: Actualiza la interfaz de usuario o notifica al usuario
             } catch (error) {
                 console.error('Error al agregar el producto al carrito:', error);
             }

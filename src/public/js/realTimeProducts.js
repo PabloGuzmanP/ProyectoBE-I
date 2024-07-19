@@ -58,7 +58,6 @@ formProduct.addEventListener("submit", function (event) {
     .then((response) => {
         formProduct.reset();
         socket.emit("formulario");
-        // socket.emit("formulario", data);
     })
     .catch((error) => {
         console.error("Error al enviar la solicitud:", error);
@@ -72,7 +71,6 @@ function deleteProduct(productId) {
     .then((response) => {
         if (response.ok) {
             socket.emit("getProducts");
-            // updateProductList();
         } else {
             throw new Error("Error al eliminar el producto.");
         }
@@ -80,8 +78,4 @@ function deleteProduct(productId) {
     .catch((error) => {
         console.error("Error al eliminar el producto:", error);
     });
-}
-
-function updateProductList() {
-    socket.emit("getProducts");
 }

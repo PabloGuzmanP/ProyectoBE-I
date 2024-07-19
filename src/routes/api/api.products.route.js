@@ -1,10 +1,7 @@
 import {Router} from "express";
-import products from "../../product.js";
-import serverSocket from "../../config/socket.config.js";
 import ProductsManager from "../../managers/ProductsManager.js";
 
 const router = Router();
-const socket = serverSocket.config();
 const productsManager = new ProductsManager();
 
 router.get("/", async (req, res) => {

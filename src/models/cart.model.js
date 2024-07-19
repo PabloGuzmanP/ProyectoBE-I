@@ -10,7 +10,7 @@ const cartSchema = new Schema ({
     products: [{type: orderProductSchema, required: true}]
 });
 
-// cartSchema.plugin(mongoosePaginate);
+cartSchema.plugin(mongoosePaginate);
 
 const CartModel = model("carts", cartSchema);
 

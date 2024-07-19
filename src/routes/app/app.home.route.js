@@ -36,8 +36,6 @@ router.get("/", async (req, res) => {
         const prevLink = productsFound.hasPrevPage ? buildLink(productsFound.prevPage) : null;
         const nextLink = productsFound.hasNextPage ? buildLink(productsFound.nextPage) : null;
 
-        // console.log(carts);
-
         res.render("home", { products: productsFound.docs, carts: cartsWithStringIds, pagination: {...productsFound, prevLink, nextLink}});
     } catch (error) {
         res.status(500).json({ status: false, message: error.message });
