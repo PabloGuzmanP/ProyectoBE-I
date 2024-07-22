@@ -19,9 +19,9 @@
 
             http://localhost:8080/api/products
 
-        * Se puede ingresar también por query params lo siguiente: `limit`, `page`, `{"category":""}` y para ordenar por medio de precio `{"field":"price", "order": "asc/desc"}`. Direcciones de ejemplo:  
+        * Se puede ingresar también por query params lo siguiente: `limit`, `page`, `category` y para ordenar por medio del precio `order`. Direcciones de ejemplo:  
 
-            * http://localhost:8080/?limit=10&page=1&order=desc&category=Especias  
+            * http://localhost:8080/api/products?limit=10&page=1&order=desc&category=Especias  
 
             * http://localhost:8080/api/products?category=Frutas
 
