@@ -21,9 +21,9 @@
 
         * Se puede ingresar también por query params lo siguiente: `limit`, `page`, `{"category":""}` y para ordenar por medio de precio `{"field":"price", "order": "asc/desc"}`. Direcciones de ejemplo:  
 
-            * http://localhost:8080/api/products?limit=20&page=1&sort={"field":"price","order":"desc"}&query={"category":"Bebidas"}  
+            * http://localhost:8080/?limit=10&page=1&order=desc&category=Especias  
 
-            * http://localhost:8080/api/products?query={"category":"Frutas"}  
+            * http://localhost:8080/api/products?category=Frutas
 
         * Metodo POST para agregar un producto.  
 
