@@ -23,4 +23,20 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    document.querySelectorAll('.sort-button').forEach(button => {
+        button.addEventListener('click', () => {
+            const order = button.getAttribute('data-order');
+            const currentUrl = new URL(window.location.href);
+            currentUrl.searchParams.set('order', order);
+            window.location.href = currentUrl.toString();
+        });
+    });
+    
+    document.querySelectorAll('.description').forEach(button => {
+        button.addEventListener('click', (event) => {
+            const productId = event.target.getAttribute('data-product-id');
+            window.location.href = `/products/${productId}`;
+        });
+    });
 });

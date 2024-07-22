@@ -8,15 +8,23 @@
 
 <body>
     <h1>Productos en el Carrito</h1>
+
+    <div>
+        <button class="sort-button" data-order="asc">Ordenar por Precio Ascendente</button>
+        <button class="sort-button" data-order="desc">Ordenar por Precio Descendente</button>
+    </div>
+    
     {{#if cart.products.length}}
     <ul>
         {{#each cart.products}}
         <li>
             <p>Nombre: {{this.productId.title}}</p>
-            <p>Descripción: {{this.productId.description}}</p>
             <p>Precio: {{this.productId.price}}</p>
             <p>Categoría: {{this.productId.category}}</p>
             <p>Cantidad: {{this.quantity}}</p>
+            <div>
+            <button class="description" data-product-id="{{this.productId._id}}">Ver descripcion</button>
+        </div>
         </li>
         {{/each}}
         <div>
