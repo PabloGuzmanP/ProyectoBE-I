@@ -12,29 +12,22 @@ export default class ProductsManager {
             const options = {
                 limit: parseInt(limit, 10),
                 page: parseInt(page, 10),
-                lean: true
+                lean: true,
+                sort: { price: sort.order }
             };
-
+    
             const queryFilter = {};
-            if ((query && query.category) || (query && query.stock)) {
-                if(query.category){
-                    queryFilter.category = query.category;
-                }
-                if(query.stock){
-                    queryFilter.stock = query.stock
-                }
+            if (query && query.category) {
+                queryFilter.category = query.category;
             }
-
-            if (sort && sort.field === "price") {
-                options.sort = { [sort.field]: sort.order === 'desc' ? -1 : 1 };
-            }
-
+    
             const products = await this.#productModel.paginate(queryFilter, options);
             return products;
         } catch (error) {
             throw new Error(error.message);
         }
     }
+    
 
     getOneById = async (id) => {
         try {
