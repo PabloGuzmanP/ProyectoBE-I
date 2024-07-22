@@ -9,12 +9,11 @@
 <body>
     <h1>Productos en el Carrito</h1>
 
+    {{#if cart.products.length}}
     <div>
         <button class="sort-button" data-order="asc">Ordenar por Precio Ascendente</button>
         <button class="sort-button" data-order="desc">Ordenar por Precio Descendente</button>
     </div>
-    
-    {{#if cart.products.length}}
     <ul>
         {{#each cart.products}}
         <li>
