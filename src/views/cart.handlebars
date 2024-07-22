@@ -19,8 +19,13 @@
             <p>Cantidad: {{this.quantity}}</p>
         </li>
         {{/each}}
+        <div>
+            <button class="delete-products" cart-id="{{cart._id}}">Vaciar Carrrito</button>
+        </div>
     </ul>
     {{else}}
     <p>No hay productos en este carrito.</p>
     {{/if}}
 </body>
+
+<script src="/api/public/js/cart.js"></script>
